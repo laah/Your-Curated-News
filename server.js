@@ -2,6 +2,7 @@
 var express = require("express");
 var mongojs = require("mongojs");
 var mongoose = require("mongoose");
+var path = require("path");
 // Require request and cheerio. This makes the scraping possible
 var cheerio = require("cheerio");
 var request = require("request");
@@ -39,24 +40,9 @@ db.on("error", function(error) {
   console.log("Database Error:", error);
 });
 
-// Main route (simple Hello World Message)
+// Main route (simple Hello World Message)(know main page goes here)
 app.get("/", function(req, res) {
   res.send("Hello world");
-});
-
-// Retrieve data from the db
-app.get("/all", function(req, res) {
-  // Find all results from the scrapedData collection in the db
-  db.scrapedData.find({}, function(error, found) {
-    // Throw any errors to the console
-    if (error) {
-      console.log(error);
-    }
-    // If there are no errors, send the data to the browser as json
-    else {
-      res.json(found);
-    }
-  });
 });
 
 // Scrape data from one site and place it into the mongodb db
@@ -93,24 +79,63 @@ app.get("/scrape", function(req, res) {
       }
     });
   });
-
   // Send a "Scrape Complete" message to the browser
   res.send("Scrape Complete");
 });
 
-app.get("/articles", function(req, res) {
-  // Grab every doc in the Articles array
-  Article.find({}, function(error, doc) {
-    // Log any errors
+  // Retrieve data from the db (to show on browser)
+app.get("/all", function(req, res) {
+  console.log('we hit the route ----');
+  // Find all results from the scrapedData collection in the db
+  db.scrapedData.find({}, function(error, found) {
+    // Throw any errors to the console
     if (error) {
       console.log(error);
     }
-    // Or send the doc to the browser as a json object
+    // If there are no errors, send the data to the browser as json
     else {
-      res.json(doc);
+      res.json(found);
     }
   });
 });
+
+app.get("/home", function(req, res) {
+  console.log('hit the home path ----');
+  res.sendFile(path.join(__dirname, './public/index.html'))
+});
+
+
+// app.get("/articles", function(req, res) {
+//   // Grab every doc in the Articles array
+//   Article.find({}, function(error, doc) {
+//     // Log any errors
+//     if (error) {
+//       console.log(error);
+//     }
+//     // Or send the doc to the browser as a json object
+//     else {
+//       res.json(doc);
+//     }
+//   });
+// });
+// // / Route to get all User's and populate them with their notes
+// app.get("/articles", function(req, res) {
+//   // Find all users
+//   db.scrapedData
+//     .find({})
+//     // Specify that we want to populate the retrieved users with any associated notes
+//     .populate("panel-body")
+//     .then(function(dbscrapedData) {
+//       // If able to successfully find and associate all Users and Notes, send them back to the client
+//       res.json(dbscrapedData);
+//     })
+//     .catch(function(err) {
+//       // If an error occurs, send it back to the client
+//       res.json(err);
+//     });
+// });
+
+
 
 // Listen on port 3000
 app.listen(3000, function() {
