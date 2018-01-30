@@ -35,10 +35,11 @@
         <a href="/">Home</a>
       </li>
       <li>
-        <a href="/saved">Saved Articles</a>
+        <a id="showSaved">Saved Articles</a>
       </li>
       <li>
-        <a class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</a>
+        <!-- <a id="scrape" class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</a> -->
+        <div id="scrape" class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</div>
       </li>
     
     </ul>
@@ -56,19 +57,7 @@
     <p>Globe and Mail Edition</p>
   </div>
 </div>
-<div class="container-fluid artical-container"> 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-       <h4 id= "title"></h4>  
-        <a class="article-link" target="_blank" href="link"></a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <p></p>
-      <a href="link" target="_blank"></a>
-    </div>
-  </div>
+<div id="articleContainer" class="container-fluid artical-container"> 
 </div>
 <footer class="footer">
   <div class="container">
