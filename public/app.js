@@ -5,7 +5,6 @@ $("#scrape").on("click", function() {
         method: "GET",
         url: "/scrape",
     }).done(function(articles) {
-        console.log('this is our array of articles!!!!', articles);
         displayResults(articles)
     })
 });
@@ -17,7 +16,6 @@ $("#showSaved").on("click", function() {
       method: "GET",
       url: "/allSaved",
   }).done(function(articles) {
-      console.log('this is our array of articles!!!!', articles);
       displayResults(articles)
   })
 });
@@ -33,7 +31,6 @@ $('#articleContainer').on('click', '#save', function (){
      }
     })
       .done(function(responseFromBackend) {
-        console.log('thing we go back from backend ----', responseFromBackend);
     });
 });
 

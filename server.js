@@ -68,37 +68,21 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(html);
     // For each element with a "title" class
     $(".o-card__content-text").each(function(i, element) {
-      // console.log("this is the element found", element.parent.parent.parent.parent.attribs.href);
+      
       // Save the text and href of each link enclosed in the current element
       var title = element.children[0].data;
       var link = "https://www.theglobeandmail.com" + element.parent.parent.parent.parent.attribs.href;
 
       // If this found element had both a title and a link
       if (title) {
-        // console.log('we are about to push article onto our array!!');
+       
         arrayOfArticles.push({title: title, link: link})
-        // Insert the data in the scrapedData db
-        // db.scrapedData.insert({
-        //   title: title,
-        //   link: link
-        // },
-        // function(err, inserted) {
-        //   if (err) {
-        //     // Log the error if one is encountered during the query
-        //     console.log(err);
-        //   }
-        //   else {
-        //     // Otherwise, log the inserted data
-        //     console.log(inserted);
-        //   }
-        // });
+        
       }
     });
     res.json(arrayOfArticles);
   });
-  // Send a "Scrape Complete" message to the browser
-  // res.json(arrayOfArticles);
-  // res.send("Scrape Complete");
+  
 });
 
   // Retrieve data from the db (to show on browser)
@@ -158,38 +142,9 @@ app.post('/markAsSaved', function (req,res) {
 });
 
 
-// app.get("/articles", function(req, res) {
-//   // Grab every doc in the Articles array
-//   Article.find({}, function(error, doc) {
-//     // Log any errors
-//     if (error) {
-//       console.log(error);
-//     }
-//     // Or send the doc to the browser as a json object
-//     else {
-//       res.json(doc);
-//     }
-//   });
-// });
-// // / Route to get all User's and populate them with their notes
-// app.get("/articles", function(req, res) {
-//   // Find all users
-//   db.scrapedData
-//     .find({})
-//     // Specify that we want to populate the retrieved users with any associated notes
-//     .populate("panel-body")
-//     .then(function(dbscrapedData) {
-//       // If able to successfully find and associate all Users and Notes, send them back to the client
-//       res.json(dbscrapedData);
-//     })
-//     .catch(function(err) {
-//       // If an error occurs, send it back to the client
-//       res.json(err);
-//     });
-// });
 
 
-
+var port = process.env.PORT || 3000;
 // Listen on port 3000
 app.listen(3000, function() {
   console.log("App running on port 3000!");
