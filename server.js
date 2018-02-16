@@ -143,8 +143,13 @@ app.post('/markAsSaved', function (req,res) {
 
 
 
+const db = process.env.MONGODB_URI || "mongodb://localhost/Your-curated-news";
+mongoose.connect(db, function(error) {
+  if (error) {
+    console.error(error);
+  }
+});
 
-var port = process.env.PORT || 3000;
 // Listen on port 3000
 app.listen(3000, function() {
   console.log("App running on port 3000!");
